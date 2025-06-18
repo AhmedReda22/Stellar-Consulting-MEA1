@@ -4342,7 +4342,7 @@ nav ul li.dropdown:hover > a i {
         <div class="stat-card fade-in-up" style="animation-delay: 0.8s">
           <div class="stat-icon">🚀</div>
           <div class="stat-content">
-            <div class="stat-number" data-count="750">750+<span>+</span></div>
+            <div class="stat-number" data-count="750">750+</div>
             <div class="stat-label">Successful Projects</div>
           </div>
         </div>
@@ -6322,23 +6322,25 @@ document.addEventListener('DOMContentLoaded', function() {
   });
   
   // Animate the stat numbers
-  const statNumbers = document.querySelectorAll('.stat-number');
-  statNumbers.forEach(stat => {
-    const target = parseInt(stat.getAttribute('data-count'));
-    const duration = 2000;
-    const start = 0;
-    const increment = target / (duration / 16);
-    let current = start;
-    
-    const timer = setInterval(() => {
-      current += increment;
-      if (current >= target) {
-        clearInterval(timer);
-        current = target;
-      }
-      stat.textContent = Math.floor(current) + (stat.textContent.includes('%') ? '%' : '');
-    }, 16);
-  });
+const statNumbers = document.querySelectorAll('.stat-number');
+statNumbers.forEach(stat => {
+  const targetText = stat.textContent.trim();
+  const isPlus = targetText.includes('+');
+  const target = parseInt(stat.getAttribute('data-count'));
+  const duration = 2000;
+  const start = 0;
+  const increment = target / (duration / 16);
+  let current = start;
+  
+  const timer = setInterval(() => {
+    current += increment;
+    if (current >= target) {
+      clearInterval(timer);
+      current = target;
+    }
+    stat.textContent = Math.floor(current) + (isPlus ? '+' : '');
+  }, 16);
+});
 });
   
 
